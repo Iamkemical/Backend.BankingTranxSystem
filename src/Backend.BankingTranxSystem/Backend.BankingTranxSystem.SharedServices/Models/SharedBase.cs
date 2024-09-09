@@ -1,5 +1,4 @@
 ﻿using Backend.BankingTranxSystem.SharedServices.Domain;
-using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace Backend.BankingTranxSystem.SharedServices.Models;

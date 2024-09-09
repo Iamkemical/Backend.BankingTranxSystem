@@ -1,10 +1,7 @@
 ﻿using Backend.BankingTranxSystem.SharedServices.ErrorHandling;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
 using System.Net;
-using System.Threading.Tasks;
 
 namespace Backend.BankingTranxSystem.SharedServices.Middlewares;
 

@@ -17,3 +17,12 @@ public class StandardMessagesBase
     public const string ErrorOccured = "It seems something went wrong. Please try again.";
 
 }
+
+public class BankingTranxSystemMessageConstants : StandardMessagesBase
+{
+    public static class CustomerMsg
+    {
+        public const string CustomerExists = "Sorry! Customer with the provided details already exists";
+        public const string CustomerDoesNotExist = "Sorry! Customer with the provided details does not exist";
+    }
+}
