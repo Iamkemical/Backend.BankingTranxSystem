@@ -2,9 +2,8 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using StackExchange.Redis;
-using System.Threading.Tasks;
-using System;
 using System.Text.Json;
 
 namespace Backend.BankingTranxSystem.SharedServices.Cache;
@@ -25,7 +24,7 @@ public class ResponseCacheService(IDistributedCache distributedCache, IConnectio
             return;
         }
 
-        var serailizedResponse = JsonSerializer.Serialize(response);
+        var serailizedResponse = JsonConvert.SerializeObject(response);
 
         await _distributedCache.SetStringAsync(cacheKey, serailizedResponse, new DistributedCacheEntryOptions
         {
@@ -54,7 +53,7 @@ public class ResponseCacheService(IDistributedCache distributedCache, IConnectio
                 return default(T);
             }
 
-            return JsonSerializer.Deserialize<T>(jsonData);
+            return JsonConvert.DeserializeObject<T>(jsonData);
         }
         catch (Exception)
         {
@@ -115,7 +114,7 @@ public class ResponseCacheService(IDistributedCache distributedCache, IConnectio
                 return default(CachePagedList<T>);
             }
 
-            var data = JsonSerializer.Deserialize<CachePagedList<T>>(jsonData);
+            var data = JsonConvert.DeserializeObject<CachePagedList<T>>(jsonData);
 
             if (data is not null)
             {
@@ -126,7 +125,7 @@ public class ResponseCacheService(IDistributedCache distributedCache, IConnectio
                     currentPage = pageNumber,
                     totalPages = data.TotalPages
                 };
-                var paginationString = JsonSerializer.Serialize(paginationData);
+                var paginationString = JsonConvert.SerializeObject(paginationData);
                 Response.Headers.Append("X-Pagination", paginationString);
             }
 
@@ -139,7 +138,7 @@ public class ResponseCacheService(IDistributedCache distributedCache, IConnectio
         }
     }
 
-    public async Task CachePagedListResponseAsyn<T>(string cacheKey, PagedList<T> response, TimeSpan timeToLive) where T : class
+    public async Task CachePagedListResponseAsync<T>(string cacheKey, PagedList<T> response, TimeSpan timeToLive) where T : class
     {
         if (response == null)
         {
@@ -155,9 +154,11 @@ public class ResponseCacheService(IDistributedCache distributedCache, IConnectio
             PageSize = response.PageSize,
             TotalCount = response.TotalCount,
             TotalPages = response.TotalPages,
+            Reference = response.Reference,
+            Balance = response.Balance,
         };
 
-        var serailizedResponse = JsonSerializer.Serialize(dataToCache);
+        var serailizedResponse = JsonConvert.SerializeObject(dataToCache);
 
         await _distributedCache.SetStringAsync(cacheKey, serailizedResponse, new DistributedCacheEntryOptions
         {

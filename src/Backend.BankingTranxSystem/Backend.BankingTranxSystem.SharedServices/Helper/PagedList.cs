@@ -87,6 +87,8 @@ public class PagedList<T> : List<T>
 
 public class CachePagedList<T> where T : class
 {
+    public decimal Balance { get; set; }
+    public string Reference { get; set; }
     public int CurrentPage { get; set; }
     public int TotalPages { get; set; }
     public int PageSize { get; set; }

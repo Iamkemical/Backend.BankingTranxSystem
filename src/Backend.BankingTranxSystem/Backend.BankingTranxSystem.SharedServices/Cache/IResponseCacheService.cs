@@ -16,7 +16,7 @@ public interface IResponseCacheService
 
     Task<CachePagedList<T>> GetCachedPagedListResponseAsync<T>(string cacheKey, int pageNumber, HttpResponse Response) where T : class;
 
-    Task CachePagedListResponseAsyn<T>(string cacheKey, PagedList<T> response, TimeSpan timeToLive) where T : class;
+    Task CachePagedListResponseAsync<T>(string cacheKey, PagedList<T> response, TimeSpan timeToLive) where T : class;
 
     Task RemoveDataFromCache(string cacheKey);
 

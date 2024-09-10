@@ -1,4 +1,5 @@
 ﻿using Backend.BankingTranxSystem.SharedServices.Cache;
+using Microsoft.Extensions.Caching.Distributed;
 using StackExchange.Redis;
 
 namespace Backend.BankingTranxSystem.API.Installers;
@@ -20,8 +21,10 @@ public class CacheInstaller : IInstaller
             options.Configuration = redisCacheSettings.ConnectionString;
 
         });
-        services.AddSingleton<IConnectionMultiplexer>(sp => ConnectionMultiplexer.ConnectAsync(redisCacheSettings.ConnectionString).Result);
-        services.AddSingleton<IResponseCacheService, ResponseCacheService>();
+        services.AddScoped<IConnectionMultiplexer>(sp => ConnectionMultiplexer.ConnectAsync(redisCacheSettings.ConnectionString).Result);
+        services.AddScoped<IResponseCacheService, ResponseCacheService>();
+
+        services.AddDistributedMemoryCache();
 
         ////Cache Headers
         //services.AddHttpCacheHeaders((expirationModelOptions) =>
