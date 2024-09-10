@@ -19,8 +19,8 @@ Banking Transaction System Backend Solution
   ```
 - Setup Redis on a docker container by pulling the image from the Docker Hub
   ```
-  docker run redis:alpine3.20
-  docker run --name some-redis -d redis
+  docker run redis
+  docker run --name myredis -d -p 6379:6379 redis
   ```
 - Update/Apply Migration after building the project on Visual Studio
   ```
