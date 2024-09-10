@@ -12,13 +12,13 @@ using System.Text;
 
 namespace Backend.BankingTranxSystem.Application.ActionFilters;
 
-public class CustomerRequestIdAuthAttribute : Attribute, IEndpointFilter
+public class UserRequestIdAuthAttribute : Attribute, IEndpointFilter
 {
     public async ValueTask<object> InvokeAsync(EndpointFilterInvocationContext context, EndpointFilterDelegate next)
     {
         IConfiguration configuration = context.HttpContext.RequestServices.GetRequiredService<IConfiguration>();
-        IReadRepository<Customer> customerRepo = context.HttpContext.RequestServices.GetRequiredService<IReadRepository<Customer>>();
-        ILogger<CustomerRequestIdAuthAttribute> logger = context.HttpContext.RequestServices.GetRequiredService<ILogger<CustomerRequestIdAuthAttribute>>();
+        IReadRepository<User> UserRepo = context.HttpContext.RequestServices.GetRequiredService<IReadRepository<User>>();
+        ILogger<UserRequestIdAuthAttribute> logger = context.HttpContext.RequestServices.GetRequiredService<ILogger<UserRequestIdAuthAttribute>>();
         if (!configuration.GetValue<bool>("Encryption:IsRequired"))
         {
             var result = await next(context);
@@ -35,18 +35,18 @@ public class CustomerRequestIdAuthAttribute : Attribute, IEndpointFilter
         }
         string requestId = null;
 
-        if (requestId.IsStringEmpty() && context.HttpContext.Request.Headers.TryGetValue("X-REQUEST-ID", out var reqId))
+        if (requestId.IsStringEmpty() && context.HttpContext.Request.Headers.TryGetValue("X-REQ-ID", out var reqId))
         {
             requestId = reqId;
         }
 
         if (!requestId.IsStringEmpty())
         {
-            var isExistingCustomer = await customerRepo.GetAllAsync()
+            var isExistingUser = await UserRepo.GetAllAsync()
                                                        .AsNoTracking()
                                                        .Where(c => c.Password == requestId)
                                                        .AnyAsync();
-            if (isExistingCustomer)
+            if (isExistingUser)
             {
                 var result = await next(context);
                 return result;

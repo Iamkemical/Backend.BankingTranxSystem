@@ -1,5 +1,6 @@
 ﻿using Backend.BankingTranxSystem.API.Data;
 using Backend.BankingTranxSystem.API.Data.Repositories;
+using Backend.BankingTranxSystem.Application.BackgroundServices;
 using Backend.BankingTranxSystem.SharedServices.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,6 +22,8 @@ public class DbInstaller : IInstaller
         services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
         services.AddScoped(typeof(EfRepository<>));
         services.AddScoped(typeof(IReadRepository<>), typeof(CachedRepository<>));
+
+        services.AddHostedService<SystemSetupService>();
 
         //services.AddScoped(typeof(IMongoRepository<>), typeof(MongoRepository<>));
         //services.AddScoped(typeof(MongoRepository<>));

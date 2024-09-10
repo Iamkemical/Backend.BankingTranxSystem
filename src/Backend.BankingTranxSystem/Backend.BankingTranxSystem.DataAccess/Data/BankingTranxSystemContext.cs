@@ -1,5 +1,7 @@
 ﻿using Backend.BankingTranxSystem.DataAccess.Entities;
+using Backend.BankingTranxSystem.DataAccess.Enums;
 using Backend.BankingTranxSystem.SharedServices.Domain;
+using Backend.BankingTranxSystem.SharedServices.Helper;
 using Backend.BankingTranxSystem.SharedServices.Models;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +12,10 @@ namespace Backend.BankingTranxSystem.API.Data;
 
 public class BankingTranxSystemContext(IMediator mediator, /*IDbContextTransaction currentTransaction*/ DbContextOptions options) : DbContext(options)
 {
+    public DbSet<User> Users { get; set; }
+    public DbSet<Wallet> Wallets { get; set; }
+    public DbSet<WalletTransaction> WalletTransactions { get; set; }
+
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
         var modifiedEntries = this.ChangeTracker.Entries()
@@ -46,7 +52,7 @@ public class BankingTranxSystemContext(IMediator mediator, /*IDbContextTransacti
         //public domain events
         var eventEntitiesWithEvent = ChangeTracker
             .Entries()
-            .Select(e => e.Entity as Customer)
+            .Select(e => e.Entity as User)
             .Where(e => e?.Events != null && e.Events.Any())
             .ToArray();
 
@@ -108,21 +114,32 @@ public class BankingTranxSystemContext(IMediator mediator, /*IDbContextTransacti
 
         modelBuilder.Ignore<BaseDomainEvent>();
 
-        modelBuilder.Entity<Customer>()
+        modelBuilder.Entity<User>()
             .HasIndex(c => c.EmailAddress)
             .IsUnique();
 
-        modelBuilder.Entity<Customer>()
+        modelBuilder.Entity<User>()
             .HasIndex(c => c.Password)
             .IsUnique();
 
-        modelBuilder.Entity<Customer>()
+        modelBuilder.Entity<User>()
             .HasIndex(c => c.TelephoneNumber)
             .IsUnique();
 
-        modelBuilder.Entity<Customer>()
+        modelBuilder.Entity<User>()
             .HasIndex(c => c.Bvn)
             .IsUnique();
+
+        modelBuilder.Entity<Wallet>()
+            .HasIndex(c => c.Reference)
+            .IsUnique();
+
+        modelBuilder.Entity<WalletTransaction>()
+            .HasIndex(c => c.SourceReference);
+
+
+        modelBuilder.Entity<WalletTransaction>()
+            .HasIndex(c => c.DestinationReference);
 
 
         foreach (var property in modelBuilder.Model.GetEntityTypes()

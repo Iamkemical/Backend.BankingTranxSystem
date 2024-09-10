@@ -7,9 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Aggregates\CustomerAggregates\DTOs\Request\" />
-    <Folder Include="Aggregates\CustomerAggregates\MappingFactory\" />
-    <Folder Include="Aggregates\CustomerAggregates\Queries\" />
+    <Folder Include="Aggregates\WalletAggregates\Specifications\" />
     <Folder Include="DTOs\" />
     <Folder Include="Enums\" />
     <Folder Include="Validators\" />

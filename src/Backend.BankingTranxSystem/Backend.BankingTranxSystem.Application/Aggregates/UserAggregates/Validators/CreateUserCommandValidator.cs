@@ -1,12 +1,12 @@
-﻿using Backend.BankingTranxSystem.Application.Aggregates.CustomerAggregates.Commands;
+﻿using Backend.BankingTranxSystem.Application.Aggregates.UserAggregates.Commands;
 using Backend.BankingTranxSystem.DataAccess.Enums;
 using FluentValidation;
 
-namespace Backend.BankingTranxSystem.Application.Aggregates.CustomerAggregates.Validators;
+namespace Backend.BankingTranxSystem.Application.Aggregates.UserAggregates.Validators;
 
-public class CreateCustomerCommandValidator : AbstractValidator<CreateCustomerCommand>
+public class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>
 {
-    public CreateCustomerCommandValidator()
+    public CreateUserCommandValidator()
     {
         RuleFor(c => c.FirstName)
             .NotEmpty().WithMessage("First name cannot be empty");
@@ -36,7 +36,12 @@ public class CreateCustomerCommandValidator : AbstractValidator<CreateCustomerCo
         RuleFor(c => c.Gender)
             .IsInEnum().WithMessage("Gender is not valid")
             .When(c => c.AccountType == AccountType.Corporate && c.Gender != Gender.NA)
-            .WithMessage("Gender should be nuetral for corporate accounts");
+            .WithMessage("Gender should be neutral for corporate accounts");
+
+        RuleFor(c => c.DateOfBirth)
+            .NotEmpty().WithMessage("DateOfBirth is not valid")
+            .When(c => c.AccountType == AccountType.Corporate && c.DateOfBirth != null)
+            .WithMessage("Date of birth not valid for corporate accounts");
 
 
         RuleFor(c => c.AccountType)
@@ -49,7 +54,7 @@ public class CreateCustomerCommandValidator : AbstractValidator<CreateCustomerCo
         RuleFor(c => c.BusinessRegistrationNumber)
             .NotEmpty()
             .When(c => c.AccountType == AccountType.Corporate)
-            .WithMessage("Corporate customer must supply business registration number");
+            .WithMessage("Corporate User must supply business registration number");
 
         RuleFor(c => c.PermanentAddress)
             .NotEmpty().WithMessage("Permanent address cannot be empty");

@@ -1,4 +1,5 @@
-﻿using Backend.BankingTranxSystem.Application.Aggregates.CustomerAggregates.Commands;
+﻿using Backend.BankingTranxSystem.Application.Aggregates.UserAggregates.Commands;
+using Backend.BankingTranxSystem.Application.Aggregates.WalletAggregates.MappingFactory;
 using Backend.BankingTranxSystem.SharedServices.Helper.LazyInitialization;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
@@ -8,9 +9,9 @@ public class IocInstaller : IInstaller
 {
     public void InstallServices(IServiceCollection services, IConfiguration configuration)
     {
-        //services.AddAutoMapper(GetType().Assembly, typeof(CustomerAggregateMappingFactory).Assembly);
+        services.AddAutoMapper(GetType().Assembly, typeof(WalletAggregateMappingFactory).Assembly);
         services.AddHttpContextAccessor();
-        services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(CreateCustomerCommand).Assembly));
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(CreateUserCommand).Assembly));
         services.TryAddTransient(typeof(Lazy<>), typeof(LazyInstance<>));
     }
 }

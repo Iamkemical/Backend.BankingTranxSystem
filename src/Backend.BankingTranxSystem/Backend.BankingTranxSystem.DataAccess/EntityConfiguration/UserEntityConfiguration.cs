@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Backend.BankingTranxSystem.DataAccess.EntityConfiguration;
 
-public class CustomerEntityConfiguration : IEntityTypeConfiguration<Customer>
+public class UserEntityConfiguration : IEntityTypeConfiguration<User>
 {
-    public void Configure(EntityTypeBuilder<Customer> builder)
+    public void Configure(EntityTypeBuilder<User> builder)
     {
         builder.HasKey(x => x.Id);
 

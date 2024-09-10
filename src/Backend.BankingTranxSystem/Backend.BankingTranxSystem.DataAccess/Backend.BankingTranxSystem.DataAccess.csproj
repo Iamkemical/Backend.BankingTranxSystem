@@ -6,6 +6,12 @@
     <Nullable>disable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Entities\obj\**" />
+    <EmbeddedResource Remove="Entities\obj\**" />
+    <None Remove="Entities\obj\**" />
+  </ItemGroup>
+
 	<ItemGroup>
 		<PackageReference Include="Ardalis.GuardClauses" Version="4.4.0" />
 		<PackageReference Include="Ardalis.Specification" Version="8.0.0" />

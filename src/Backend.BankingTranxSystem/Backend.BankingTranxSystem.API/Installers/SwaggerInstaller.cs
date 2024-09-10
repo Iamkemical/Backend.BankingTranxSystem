@@ -33,8 +33,8 @@ public class SwaggerInstaller : IInstaller
             {
                 Type = SecuritySchemeType.ApiKey,
                 In = ParameterLocation.Header,
-                Name = "X-REQUEST-ID",
-                Scheme = "RequestIdAuthAttribute",
+                Name = "X-REQ-ID",
+                Scheme = "UserRequestIdAuthAttribute",
                 Description = "Enter your request id to authorize"
             });
 

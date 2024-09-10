@@ -2,11 +2,11 @@
 using Backend.BankingTranxSystem.DataAccess.Entities;
 using Backend.BankingTranxSystem.SharedServices.Helper;
 
-namespace Backend.BankingTranxSystem.Application.Aggregates.CustomerAggregates.Specifications;
+namespace Backend.BankingTranxSystem.Application.Aggregates.UserAggregates.Specifications;
 
-public class ValidateCreateCustomerSpec : Specification<Customer>
+public class ValidateCreateUserSpec : Specification<User>
 {
-    public ValidateCreateCustomerSpec(string bvn, string emailAddress, string telephone, string businessRegNo = null)
+    public ValidateCreateUserSpec(string bvn, string emailAddress, string telephone, string businessRegNo = null)
     {
         if (!businessRegNo.IsStringEmpty())
         {

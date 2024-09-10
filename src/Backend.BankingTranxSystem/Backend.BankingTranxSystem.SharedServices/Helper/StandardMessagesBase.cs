@@ -20,9 +20,17 @@ public class StandardMessagesBase
 
 public class BankingTranxSystemMessageConstants : StandardMessagesBase
 {
-    public static class CustomerMsg
+    public static class UserMsg
     {
-        public const string CustomerExists = "Sorry! Customer with the provided details already exists";
-        public const string CustomerDoesNotExist = "Sorry! Customer with the provided details does not exist";
+        public const string UserExists = "Sorry! User with the provided details already exists";
+        public const string UserDoesNotExist = "Sorry! User with the provided details does not exist";
+        public const string InvalidEmailOrPassword = "Sorry! Invalid credentials, email or password is not valid";
+    }
+
+    public static class WalletMsg
+    {
+        public const string WalletExists = "Sorry! Wallet with the provided details already exists";
+        public const string WalletDoesNotExist = "Sorry! Wallet with the provided details does not exist";
+        public const string InsufficientFundsInWallet = "Sorry! Wallet has insufficient funds";
     }
 }

@@ -1,6 +1,7 @@
-﻿namespace CamMgt.Api.Contracts;
+﻿namespace Backend.BankingTranxSystem.SharedServices;
 
 public static class Tags
 {
-    public const string Customers = "Customers";
+    public const string User = "User";
+    public const string Wallet = "Wallet";
 }

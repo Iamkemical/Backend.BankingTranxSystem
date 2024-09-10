@@ -17,6 +17,8 @@ public class PagedList<T> : List<T>
     public bool HasNext => (CurrentPage < TotalPages);
     public string PaginationData { get; private set; }
     public string ContinuationToken { get; set; }
+    public decimal Balance { get; private set; }
+    public string Reference { get; private set; }
 
     public PagedList(List<T> items, string continuationToken)
     {
@@ -40,6 +42,30 @@ public class PagedList<T> : List<T>
         PageSize = pageSize;
         CurrentPage = pageNumber;
         TotalPages = (int)Math.Ceiling(count / (decimal)pageSize);
+        AddRange(items);
+
+        PaginationData = JsonConvert.SerializeObject(new
+        {
+            totalCount = TotalCount,
+            pageSize = PageSize,
+            currentPage = pageNumber,
+            totalPages = TotalPages
+        });
+    }
+
+    public PagedList(List<T> items,
+                     int count,
+                     int pageNumber,
+                     int pageSize,
+                     decimal balance,
+                     string reference)
+    {
+        TotalCount = count;
+        PageSize = pageSize;
+        CurrentPage = pageNumber;
+        TotalPages = (int)Math.Ceiling(count / (decimal)pageSize);
+        Balance = balance;
+        Reference = reference;
         AddRange(items);
 
         PaginationData = JsonConvert.SerializeObject(new
