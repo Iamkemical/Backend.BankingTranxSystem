@@ -3,7 +3,19 @@
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
+    <Nullable>disable</Nullable>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Aggregates\WalletAggregates\Specifications\" />
+    <Folder Include="DTOs\" />
+    <Folder Include="Enums\" />
+    <Folder Include="Validators\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Backend.BankingTranxSystem.DataAccess\Backend.BankingTranxSystem.DataAccess.csproj" />
+    <ProjectReference Include="..\Backend.BankingTranxSystem.SharedServices\Backend.BankingTranxSystem.SharedServices.csproj" />
+  </ItemGroup>
 
 </Project>
