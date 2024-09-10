@@ -51,6 +51,18 @@ The project has 5 endpoints namely
      "accountType": 1
   }
   ```
+  Response
+  ```
+  {
+    "status": "000",
+    "message": "Successful",
+    "data": {
+        "userId": "4bc1809c-c72f-4b9e-9197-c5a03c5e54b5",
+        "requestId": "$2a$11$XkzxX0ZgiJc25d6uqOOLL.pchYrK5u"
+    },
+    "links": []
+  }
+  ```
 - Login User Endpoint: ````{{baseUrl}}/api/v1/user/login```` (POST)
 
   Request
@@ -60,8 +72,19 @@ The project has 5 endpoints namely
      "password": "SandraSolomon1@"
   }
   ```
+  Response
+  ```
+  {
+    "status": "000",
+    "message": "Successful",
+    "data": {
+        "requestId": "$2a$11$XkzxX0ZgiJc25d6uqOOLL.pchYrK5u"
+    },
+    "links": []
+  }
+  ```
 
-2. Authorized Endpoints
+2. Authenticated Endpoints
    
    Add 'X-API-KEY' and 'X-REQ-ID' to the header of all requests here
 
@@ -79,6 +102,19 @@ The project has 5 endpoints namely
      "transactionType": 0
   }
   ```
+  Response
+  ```
+  {
+    "status": "000",
+    "message": "Successful",
+    "data": {
+        "transactionReference": "092a4762-918f-453f-9739-da3222d5dc42",
+        "amount": 2500,
+        "walletReference": "7074153110"
+    },
+    "links": []
+  }
+  ```
 - Wallet Withdrawal Endpoint: ````{{baseUrl}}/api/v1/wallet/process-wallet-transaction```` (POST)
 
   Request
@@ -87,6 +123,19 @@ The project has 5 endpoints namely
      "amount": 2500,
      "narration": "Withdrawal",
      "transactionType": 1
+  }
+  ```
+  Response
+  ```
+  {
+    "status": "000",
+    "message": "Successful",
+    "data": {
+        "transactionReference": "092a4762-918f-453f-9739-da3222d5dc42",
+        "amount": 2500,
+        "walletReference": "7074153110"
+    },
+    "links": []
   }
   ```
 - Wallet To Wallet Transfer Endpoint: ````{{baseUrl}}/api/v1/wallet/wallet-to-wallet-transfer```` (POST)
@@ -99,6 +148,168 @@ The project has 5 endpoints namely
      "narration": "Transfer to Gabriel"
   }
   ```
+  Response
+  ```
+  {
+    "status": "000",
+    "message": "Successful",
+    "data": {
+        "sourceReference": "7074153110",
+        "destinationReference": "3326580521"
+    },
+    "links": []
+  }
+  ```
 - Wallet Transaction History Endpoint: ````{{baseUrl}}/api/v1/wallet/wallet-transaction-history?pageSize=20&pageNumber=1```` (GET)
+  Response
+  ```
+  {
+    "status": "000",
+    "message": "Successful",
+    "data": {
+        "balance": 2600.0000,
+        "reference": "7074153110",
+        "transactionHistory": [
+            {
+                "sourceReference": "7074153110",
+                "destinationReference": "0467256446",
+                "transactionType": 0,
+                "narration": "Deposit",
+                "amount": 2500.0000,
+                "createdAt": "2024-09-10T17:38:17.0568129"
+            },
+            {
+                "sourceReference": "7074153110",
+                "destinationReference": "3326580521",
+                "transactionType": 2,
+                "narration": "Transfer to Gabriel",
+                "amount": 100.0000,
+                "createdAt": "2024-09-10T17:32:53.8548507"
+            },
+            {
+                "sourceReference": "7074153110",
+                "destinationReference": "3326580521",
+                "transactionType": 2,
+                "narration": "Transfer to Gabriel",
+                "amount": 300.0000,
+                "createdAt": "2024-09-10T17:29:44.8160942"
+            },
+            {
+                "sourceReference": "7074153110",
+                "destinationReference": "3326580521",
+                "transactionType": 2,
+                "narration": "Transfer to Gabriel",
+                "amount": 300.0000,
+                "createdAt": "2024-09-10T17:28:01.009095"
+            },
+            {
+                "sourceReference": "7074153110",
+                "destinationReference": "0467256446",
+                "transactionType": 1,
+                "narration": "Withdrawal",
+                "amount": 500.0000,
+                "createdAt": "2024-09-10T17:11:08.3880503"
+            },
+            {
+                "sourceReference": "7074153110",
+                "destinationReference": "0467256446",
+                "transactionType": 1,
+                "narration": "Withdrawal",
+                "amount": 2000.0000,
+                "createdAt": "2024-09-10T17:07:06.8819159"
+            },
+            {
+                "sourceReference": "7074153110",
+                "destinationReference": "0467256446",
+                "transactionType": 0,
+                "narration": "Deposit",
+                "amount": 1000.0000,
+                "createdAt": "2024-09-10T17:06:40.838957"
+            }
+        ],
+        "totalCount": 7,
+        "totalPages": 1,
+        "pageNumber": 1,
+        "pageSize": 20,
+        "paginationData": "{\"totalCount\":7,\"pageSize\":20,\"currentPage\":1,\"totalPages\":1}"
+    },
+    "links": []
+  }
+  ```
 
 - Wallet Monthly Statement Generation Endpoint: ````{{baseUrl}}/api/v1/wallet/wallet-transaction-history?pageSize=20&pageNumber=1&isMonthlyStatement=1&month=9```` (GET)
+  Response
+  ```
+  {
+    "status": "000",
+    "message": "Successful",
+    "data": {
+        "balance": 2600.0000,
+        "reference": "7074153110",
+        "transactionHistory": [
+            {
+                "sourceReference": "7074153110",
+                "destinationReference": "0467256446",
+                "transactionType": 0,
+                "narration": "Deposit",
+                "amount": 2500.0000,
+                "createdAt": "2024-09-10T17:38:17.0568129"
+            },
+            {
+                "sourceReference": "7074153110",
+                "destinationReference": "3326580521",
+                "transactionType": 2,
+                "narration": "Transfer to Gabriel",
+                "amount": 100.0000,
+                "createdAt": "2024-09-10T17:32:53.8548507"
+            },
+            {
+                "sourceReference": "7074153110",
+                "destinationReference": "3326580521",
+                "transactionType": 2,
+                "narration": "Transfer to Gabriel",
+                "amount": 300.0000,
+                "createdAt": "2024-09-10T17:29:44.8160942"
+            },
+            {
+                "sourceReference": "7074153110",
+                "destinationReference": "3326580521",
+                "transactionType": 2,
+                "narration": "Transfer to Gabriel",
+                "amount": 300.0000,
+                "createdAt": "2024-09-10T17:28:01.009095"
+            },
+            {
+                "sourceReference": "7074153110",
+                "destinationReference": "0467256446",
+                "transactionType": 1,
+                "narration": "Withdrawal",
+                "amount": 500.0000,
+                "createdAt": "2024-09-10T17:11:08.3880503"
+            },
+            {
+                "sourceReference": "7074153110",
+                "destinationReference": "0467256446",
+                "transactionType": 1,
+                "narration": "Withdrawal",
+                "amount": 2000.0000,
+                "createdAt": "2024-09-10T17:07:06.8819159"
+            },
+            {
+                "sourceReference": "7074153110",
+                "destinationReference": "0467256446",
+                "transactionType": 0,
+                "narration": "Deposit",
+                "amount": 1000.0000,
+                "createdAt": "2024-09-10T17:06:40.838957"
+            }
+        ],
+        "totalCount": 7,
+        "totalPages": 1,
+        "pageNumber": 1,
+        "pageSize": 20,
+        "paginationData": "{\"totalCount\":7,\"pageSize\":20,\"currentPage\":1,\"totalPages\":1}"
+    },
+    "links": []
+  }
+  ```
