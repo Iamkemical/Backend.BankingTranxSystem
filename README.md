@@ -12,7 +12,7 @@ Banking Transaction System Backend Solution
 
 ### Requirements
 - Install [.NET 8](https://dotnet.microsoft.com/en-us/download/dotnet/8.0).
-- Setup Seq on a docker container by pulling the image from Docker Hub
+- Setup Seq on a docker container by pulling the image from Docker Hub (After running docker image, go to http://localhost:5341)
   ```
   docker run datalust/seq
   docker run --name seq -d --restart unless-stopped -e ACCEPT_EULA=Y -p 5341:80 datalust/seq:latest
